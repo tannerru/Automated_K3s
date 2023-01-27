@@ -63,8 +63,8 @@ spec:
             - name: media
               mountPath: /media
 
-            - name: config
-              mountPath: /config
+           # - name: config
+            #  mountPath: /config
 
       volumes:
         - name: media
@@ -72,7 +72,7 @@ spec:
             server: 10.0.50.4
             path: /mnt/Slow/Media
 
-        - name: config
-          nfs:
-            server: 10.0.50.4
-            path: /mnt/Slow/Media
+       # - name: config
+        #  nfs:
+         #   server: 10.0.50.4
+          #  path: /mnt/Slow/Media
