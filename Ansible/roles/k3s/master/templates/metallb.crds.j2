@@ -1181,11 +1181,11 @@ spec:
           spec:
             description: L2AdvertisementSpec defines the desired state of L2Advertisement.
             properties:
-              interfaces:
+              interfaces: eth0
                 description: A list of interfaces to announce from. The LB IP will
                   be announced only from these interfaces. If the field is not set,
                   we advertise from all the interfaces on the host.
-                items: eth0
+                items:
                   type: string
                 type: array
               ipAddressPoolSelectors:
@@ -2038,18 +2038,3 @@ webhooks:
     resources:
     - l2advertisements
   sideEffects: None
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-metallb/metallb-native.yaml at main · metallb/metallb

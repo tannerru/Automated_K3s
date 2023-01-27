@@ -60,11 +60,4 @@ metal_lb_ip_range: "10.0.40.160-10.0.40.180"
 #IP/hostname for NAS to use for NFS mounts
 truenas: "10.0.50.4"
 
-#Mount for Media
-media: "/mnt/Slow/Media"
-
-#Mount for Configs
-
-
-#Mount for Downloads
 

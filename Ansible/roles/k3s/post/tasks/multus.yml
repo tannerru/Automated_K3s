@@ -30,7 +30,7 @@
 - name: Copy multus network manifest to first master
   template:
     src: "medianamespace.j2"
-    dest: "/tmp/k3s/multusyml"
+    dest: "/tmp/k3s/multus.yml"
     owner: "{{ ansible_user }}"
     mode: 0755
   with_items: "{{ groups['master'] }}"
