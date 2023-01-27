@@ -1,0 +1,47 @@
+---
+- name: Create manifests directory for temp configuration
+  file:
+    path: /tmp/k3s
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  with_items: "{{ groups['master'] }}"
+  run_once: true
+
+- name: Copy medianamespace manifest to first master
+  template:
+    src: "medianamespace.j2"
+    dest: "/tmp/k3s/medianamespace.yml"
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  with_items: "{{ groups['master'] }}"
+  run_once: true
+
+
+- name: Apply medianamespace
+  command: >-
+    k3s kubectl apply -f /tmp/k3s/medianamespace.yml
+  register: this
+  changed_when: false
+  run_once: true
+  until: this.rc == 0
+  retries: 5
+
+- name: Copy multus network manifest to first master
+  template:
+    src: "medianamespace.j2"
+    dest: "/tmp/k3s/multusyml"
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  with_items: "{{ groups['master'] }}"
+  run_once: true
+
+
+- name: Apply multus network
+  command: >-
+    k3s kubectl apply -f /tmp/k3s/multus.yml
+  register: this
+  changed_when: false
+  run_once: true
+  until: this.rc == 0
+  retries: 5

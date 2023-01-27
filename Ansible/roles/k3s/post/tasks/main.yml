@@ -5,6 +5,9 @@
 - name: Deploy argocd namespace
   include_tasks: argo.yml
 
+- name: Deploy Multus Network
+  include_tasks: multus.yml
+
 
 
 
