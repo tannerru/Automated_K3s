@@ -1,0 +1,22 @@
+#Delete all pods stuck terminating
+
+"kubectl get pods --all-namespaces | grep Terminating | while read line; do
+  pod_name=$(echo $line | awk '{print $2}' ) \
+  name_space=$(echo $line | awk '{print $1}' ); \
+  kubectl delete pods $pod_name -n $name_space --grace-period=0 --force
+done"
+
+
+#network plugins
+cd /var/lib/rancher/k3s/data/current/bin
+wget https://github.com/containernetworking/plugins/releases/download/v1.2.0/cni-plugins-linux-amd64-v1.2.0.tgz
+tar zxvf cni-plugins-linux-amd64-v1.2.0.tgz
+
+#shell into a container 
+kubectl exec --stdin --tty shell-demo -- /bin/bash
+
+
+###Change argocd login
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+argocd login 10.0.40.160
+argocd account update-password

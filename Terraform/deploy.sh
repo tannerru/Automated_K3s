@@ -1,0 +1,1 @@
+terraform apply -parallelism=3 -auto-approve

@@ -1,0 +1,58 @@
+---
+- name: Create manifests directory for temp configuration
+  file:
+    path: /tmp/k3s
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  with_items: "{{ groups['master'] }}"
+  run_once: true
+
+- name: Copy argonamespace manifest to first master
+  template:
+    src: "argonamespace.j2"
+    dest: "/tmp/k3s/argonamespace.yml"
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  with_items: "{{ groups['master'] }}"
+  run_once: true
+
+
+- name: Apply argonamespace
+  command: >-
+    k3s kubectl apply -f /tmp/k3s/argonamespace.yml
+  register: this
+  changed_when: false
+  run_once: true
+  until: this.rc == 0
+  retries: 5
+
+- name: Apply ArgoCD
+  command: >-
+    k3s kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/ha/install.yaml
+  register: this
+  changed_when: false
+  run_once: true
+  until: this.rc == 0
+  retries: 5
+
+
+
+- name: Change Argo-Server to Loadbalancer
+  command: >-
+    k3s kubectl patch service argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}'
+  register: this
+  changed_when: false
+  run_once: true
+  until: this.rc == 0
+  retries: 5
+
+
+- name: Build nginx 
+  shell: |
+     curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+     chmod +x /usr/local/bin/argocd
+  
+
+
+
