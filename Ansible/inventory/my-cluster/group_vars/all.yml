@@ -9,7 +9,7 @@ system_timezone: "America/Chicago"
 
 # interface which will be used for flannel
 flannel_iface: "eth0"
-flannel_cni: "/home/tannerru/10-flannel.conflist"
+flannel_cni: "/tmp/10-flannel.conflist"
 
 # apiserver_endpoint is virtual ip-address which will be configured on each master
 apiserver_endpoint: "10.0.40.150"

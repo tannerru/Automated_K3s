@@ -77,7 +77,7 @@
 - name: Copy flannel config directory
   template:
     src: "flannelconf.j2"
-    dest: "/home/tannerru/10-flannel.conflist"
+    dest: "/tmp/10-flannel.conflist"
     owner: root
     group: root
     mode: 0644
