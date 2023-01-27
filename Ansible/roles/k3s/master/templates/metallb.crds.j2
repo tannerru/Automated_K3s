@@ -1,37 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@tannerru 
-metallb
-/
-metallb
-Public
-Fork your own copy of metallb/metallb
-Code
-Issues
-121
-Pull requests
-26
-Actions
-Projects
-6
-Security
-Insights
-metallb/config/manifests/metallb-native.yaml
-@pperiyasamy
-pperiyasamy Implement ip pool selector logic for service
-…
-Latest commit c6f5f9d on Nov 8, 2022
- History
- 11 contributors
-@fedepaol@pperiyasamy@sabinaaledort@liornoy@panpan0000@tylerauerbeck@cyclinder@mgsh@leppeK@attiss@qingwusunny
- 2040 lines (2040 sloc)  73.7 KB
-
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -1219,7 +1185,7 @@ spec:
                 description: A list of interfaces to announce from. The LB IP will
                   be announced only from these interfaces. If the field is not set,
                   we advertise from all the interfaces on the host.
-                items: eth1
+                items: eth0
                   type: string
                 type: array
               ipAddressPoolSelectors:
