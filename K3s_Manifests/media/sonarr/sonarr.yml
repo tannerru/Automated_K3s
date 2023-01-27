@@ -46,11 +46,12 @@ spec:
     metadata:
       labels:
         app: sonarr
+      annotations:
+        k8s.v1.cni.cncf.io/networks: macvlan-conf
     spec:
       containers:
         - name: sonarr
-          annotations:
-            k8s.v1.cni.cncf.io/networks: macvlan-conf
+          
           image: linuxserver/sonarr
           resources:
             requests: 
