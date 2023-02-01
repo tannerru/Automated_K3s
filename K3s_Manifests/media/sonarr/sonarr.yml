@@ -21,7 +21,6 @@ metadata:
     app: sonarr_service
 spec:
   externalTrafficPolicy: Cluster
-  internalTrafficPolicy: Cluster
   ports:
   - name: http
     port: 8989
