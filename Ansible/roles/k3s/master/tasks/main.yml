@@ -13,12 +13,8 @@
   args:
     warn: false  # The ansible systemd module does not support reset-failed
 
-
-- name: Deploy vip manifest
+- name: Deploy VIP manifest
   include_tasks: vip.yml
-
-- name: Deploy metallb manifest
-  include_tasks: metallb.yml
 
 - name: Deploy Multus manifest
   include_tasks: multus.yml

@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
+  creationTimestamp: null
   name: kube-vip-ds
   namespace: kube-system
 spec:
@@ -9,6 +10,7 @@ spec:
       name: kube-vip-ds
   template:
     metadata:
+      creationTimestamp: null
       labels:
         name: kube-vip-ds
     spec:
@@ -31,9 +33,9 @@ spec:
         - name: port
           value: "6443"
         - name: vip_interface
-          value: {{ flannel_iface }}
+          value: eth0
         - name: vip_cidr
-          value: "{{ apiserver_endpoint | ansible.utils.ipsubnet | ansible.utils.ipaddr('prefix') }}"
+          value: "32"
         - name: cp_enable
           value: "true"
         - name: cp_namespace
@@ -45,14 +47,14 @@ spec:
         - name: vip_leaderelection
           value: "true"
         - name: vip_leaseduration
-          value: "15"
+          value: "5"
         - name: vip_renewdeadline
-          value: "10"
+          value: "3"
         - name: vip_retryperiod
-          value: "2"
+          value: "1"
         - name: address
-          value: {{ apiserver_endpoint }}
-        image: ghcr.io/kube-vip/kube-vip:{{ kube_vip_tag_version }}
+          value: 10.0.40.150
+        image: ghcr.io/kube-vip/kube-vip-iptables:v0.5.7
         imagePullPolicy: Always
         name: kube-vip
         resources: {}

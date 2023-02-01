@@ -1,6 +1,7 @@
 ---
-- name: Deploy metallb pool
-  include_tasks: metallb.yml
+
+- name: Deploy PureLB manifest
+  include_tasks: purelb.yml
 
 - name: Deploy argocd namespace
   include_tasks: argo.yml
@@ -8,6 +9,11 @@
 - name: Deploy Multus Network
   include_tasks: multus.yml
 
+- name: Install network plugins (mainly for macvlan)
+  shell: |
+   cd /var/lib/rancher/k3s/data/current/bin
+   wget https://github.com/containernetworking/plugins/releases/download/v1.2.0/cni-plugins-linux-amd64-v1.2.0.tgz
+   tar zxvf cni-plugins-linux-amd64-v1.2.0.tgz
 
 
 

@@ -9,11 +9,7 @@
     state: disabled
   when: ansible_os_family == "RedHat"
 
-- name: Install network plugins (mainly for macvlan)
-  shell: |
-   cd /var/lib/rancher/k3s/data/current/bin
-   wget https://github.com/containernetworking/plugins/releases/download/v1.2.0/cni-plugins-linux-amd64-v1.2.0.tgz
-   tar zxvf cni-plugins-linux-amd64-v1.2.0.tgz
+
 
 - name: Install nfs-common
   shell: |
@@ -77,7 +73,7 @@
 - name: Copy flannel config directory
   template:
     src: "flannelconf.j2"
-    dest: "/tmp/10-flannel.conflist"
+    dest: "/home/{{ ansible_user }}/10-flannel.conflist"
     owner: root
     group: root
     mode: 0644

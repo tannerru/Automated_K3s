@@ -9,7 +9,7 @@ system_timezone: "America/Chicago"
 
 # interface which will be used for flannel
 flannel_iface: "eth0"
-flannel_cni: "/tmp/10-flannel.conflist"
+flannel_cni: "/home/{{ ansible_user }}/10-flannel.conflist"
 
 # apiserver_endpoint is virtual ip-address which will be configured on each master
 apiserver_endpoint: "10.0.40.150"
@@ -35,27 +35,16 @@ extra_args: >-
 # change these to your liking, the only required are: --disable servicelb, --tls-san {{ apiserver_endpoint }}
 extra_server_args: >-
   {{ extra_args }}
-  {{ '--node-taint node-role.kubernetes.io/master=true:NoSchedule' if k3s_master_taint else '' }}
   --tls-san {{ apiserver_endpoint }}
   --disable servicelb
   --disable traefik
-
-
-  
-  
+  --bind-address {{ k3s_node_ip }}
+  {{ '--node-taint node-role.kubernetes.io/master=true:NoSchedule' if k3s_master_taint else '' }}
 
 extra_agent_args: >-
   {{ extra_args }}
 
-# image tag for kube-vip
-kube_vip_tag_version: "v0.5.7"
 
-# image tag for metal lb
-metal_lb_speaker_tag_version: "v0.13.7"
-metal_lb_controller_tag_version: "v0.13.7"
-
-# metallb ip range for load balancer
-metal_lb_ip_range: "10.0.40.160-10.0.40.180"
 
 #IP/hostname for NAS to use for NFS mounts
 truenas: "10.0.50.4"
