@@ -30,6 +30,7 @@ spec:
   selector:    
     app: sonarr
   type: LoadBalancer
+  loadBalancerIP: 10.0.40.161
    
 ---
 apiVersion: apps/v1
