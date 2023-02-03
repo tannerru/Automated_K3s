@@ -3749,8 +3749,8 @@ spec:
   - name: http
     port: 80
     targetPort: http
-    type: LoadBalancer
-    loadBalancerIP: 10.0.40.163
+  type: LoadBalancer
+  loadBalancerIP: 10.0.40.163
    
 # Source: longhorn/templates/services.yaml
 apiVersion: v1
