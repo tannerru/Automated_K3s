@@ -9,6 +9,9 @@
 - name: Deploy Multus Network
   include_tasks: multus.yml
 
+- name: Deploy Longhorn Storage
+  include_tasks: longhorn.yml
+
 - name: Install network plugins (mainly for macvlan)
   shell: |
    cd /var/lib/rancher/k3s/data/current/bin
@@ -17,7 +20,7 @@
 
 
 
-#- name: Remove tmp directory used for manifests
- # file:
-  #  path: /tmp/k3s
-   # state: absent
+- name: Remove tmp directory used for manifests
+  file:
+    path: /tmp/k3s
+    state: absent

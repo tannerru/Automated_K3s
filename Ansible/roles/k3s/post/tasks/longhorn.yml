@@ -1,0 +1,30 @@
+---
+- name: Create manifests directory for temp configuration
+  file:
+    path: /tmp/k3s
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  with_items: "{{ groups['master'] }}"
+  run_once: true
+
+
+- name: Copy Longhorn manifest to first master
+  template:
+    src: "longhorn.j2"
+    dest: "/tmp/k3s/longhorn.yml"
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  with_items: "{{ groups['master'] }}"
+  run_once: true
+
+
+- name: Apply Longhorn manifest
+  command: >-
+    k3s kubectl apply -f /tmp/k3s/longhorn.yml
+  register: this
+  changed_when: false
+  run_once: true
+  until: this.rc == 0
+  retries: 5
+
