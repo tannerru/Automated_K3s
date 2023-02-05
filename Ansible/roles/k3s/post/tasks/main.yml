@@ -14,7 +14,8 @@
 
 - name: Install network plugins (mainly for macvlan)
   shell: |
-   cd /var/lib/rancher/k3s/data/current/bin
+   mkdir /opt/cni/bin
+   cd /opt/cni/bin
    wget https://github.com/containernetworking/plugins/releases/download/v1.2.0/cni-plugins-linux-amd64-v1.2.0.tgz
    tar zxvf cni-plugins-linux-amd64-v1.2.0.tgz
 
