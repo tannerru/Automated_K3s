@@ -25,7 +25,7 @@ resource "proxmox_vm_qemu" "k3s_master" {
 
   # Cloud-init section
   ipconfig0 = "ip=${each.value.ip}/24,gw=${each.value.gw}"
-  ipconfig1 = "ip=${each.value.ip2}/24,gw=${each.value.gw2}"
+  ipconfig1 = "ip=${each.value.ip2}/24"
   ssh_user  = var.ssh_user
   sshkeys   = var.ssh_pub_key
   ciuser = var.ciuser
@@ -72,7 +72,7 @@ resource "proxmox_vm_qemu" "k3s_workers" {
 
   # Cloud-init section
   ipconfig0 = "ip=${each.value.ip}/24,gw=${each.value.gw}"
-  ipconfig1 = "ip=${each.value.ip2}/24,gw=${each.value.gw2}"
+  ipconfig1 = "ip=${each.value.ip2}/24"
   ssh_user  = var.ssh_user
   sshkeys   = var.ssh_pub_key
   ciuser = var.ciuser

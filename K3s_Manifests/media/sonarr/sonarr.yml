@@ -76,7 +76,7 @@ spec:
       volumes:
         - name: media
           nfs:
-            server: 10.0.40.4
+            server: 10.0.50.4
             path: /mnt/Slow/Media
 
         - name: config
