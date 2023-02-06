@@ -75,14 +75,14 @@ spec:
             containerPort: 8090
         
           volumeMounts:
-            - name: Downloads
+            - name: downloads
               mountPath: /downloads
 
             - name: config
               mountPath: /config
 
       volumes:
-        - name: Downloads
+        - name: downloads
           nfs:
             server: 10.0.50.4
             path: /mnt/Slow/Downloads
